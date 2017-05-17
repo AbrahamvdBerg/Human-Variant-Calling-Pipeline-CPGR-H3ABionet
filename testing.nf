@@ -3,10 +3,11 @@
 params.in3 = "/home/abraham/human_variant/input_files/SP1.fq"
 params.in1 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVariants_And_ERR250949_Variants_Exome_50X_NEAT_read1.fq"
 params.in2 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVariants_And_ERR250949_Variants_Exome_50X_NEAT_read2.fq"
-
+params.ref = "/home/abraham/human_variant/reference_files/hg38.fa"
 
 sequences1 = file(params.in3)
 sequences2 = file(params.in3)
+refgenome = file(params.ref)
 
 process AdaptorTrim {
 
@@ -38,6 +39,20 @@ process QualityTrim {
     """
     fastq_quality_filter -i $x1 -o qualtrimmed1
     fastq_quality_filter -i $x2 -o qualtrimmed2
+    """
+}
+
+process map_to_reference {
+    input:
+    file y1 from recordsqual1
+    file y2 from recordsqual2
+    file ref from refgenome
+
+    output:
+    file 'mapped' into recordsmap
+
+    """
+    bwa mem $ref $y1 $y2 
     """
 }
 
