@@ -19,8 +19,8 @@ process AdaptorTrim {
     file 'seq_2' into records2
 
     """
-    fastx_clipper -l 20 -v -i input1.fa -o seq_1
-    fastx_clipper -l 20 -v -i input2.fa -o seq_2
+    fastx_clipper -l 20 -v -i input1.fq -o seq_1
+    fastx_clipper -l 20 -v -i input2.fq -o seq_2
     """
 
 }
