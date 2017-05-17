@@ -5,8 +5,8 @@ params.in1 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVar
 params.in2 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVariants_And_ERR250949_Variants_Exome_50X_NEAT_read2.fq"
 params.ref = "/home/abraham/human_variant/reference_files/hg38.fa"
 
-sequences1 = file(params.in3)
-sequences2 = file(params.in3)
+sequences1 = file(params.in1)
+sequences2 = file(params.in2)
 refgenome = file(params.ref)
 
 process AdaptorTrim {
