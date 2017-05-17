@@ -15,12 +15,12 @@ process AdaptorTrim {
     file 'input2.fq' from sequences2
 
     output:
-    file 'seq_1' into records1
-    file 'seq_2' into records2
+    file 'seq_1*' into records1
+    file 'seq_2*' into records2
 
     """
-    fastx_clipper -l 20 -v -i input1.fq -o seq_1
-    fastx_clipper -l 20 -v -i input2.fq -o seq_2
+    fastx_clipper -l 20 -v -i input1.fq -o seq_1*
+    fastx_clipper -l 20 -v -i input2.fq -o seq_2*
     """
 
 }
@@ -33,7 +33,7 @@ process QualityTrim {
     
     output:
     file 'qualtrimmed1' into recordsqual1
-    file 'qualtrimeed2' into recordsqual2
+    file 'qualtrimmed2' into recordsqual2
 
     """
     fastq_quality_filter -i $x1 -o qualtrimmed1
