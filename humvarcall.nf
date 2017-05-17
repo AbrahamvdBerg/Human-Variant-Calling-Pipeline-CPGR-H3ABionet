@@ -7,7 +7,6 @@ params.ref = "/home/abraham/human_variant/reference_files/hg38.fa"
 sequences1 = file(params.in1)
 sequences2 = file(params.in2)
 refgenome = file(params.ref)
-indexref = file(params.index)
 
 process AdaptorTrim {
 
