@@ -12,7 +12,7 @@ process AdaptorTrim {
 
     input:
     file 'input1.fq' from sequences1
-    file 'imput2.fq' from sequences2
+    file 'input2.fq' from sequences2
 
     output:
     file 'seq_1' into records1
