@@ -45,7 +45,6 @@ process map_to_reference {
     input:
     file y1 from recordsqual1
     file y2 from recordsqual2
-    file indexed from indexref
     file ref from refgenome
 
     output:
