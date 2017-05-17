@@ -15,12 +15,12 @@ process AdaptorTrim {
     file 'imput2.fa' from sequences2
 
     output:
-    file 'seq_*1' into records1
-    file 'seq_*2' into records2
+    file 'seq_1' into records1
+    file 'seq_2' into records2
 
     """
-    fastx_clipper -l 20 -v -i input1.fa -o seq_*1
-    fastx_clipper -l 20 -v -i input2.fa -o seq_*2
+    fastx_clipper -l 20 -v -i input1.fa -o seq_1
+    fastx_clipper -l 20 -v -i input2.fa -o seq_2
     """
 
 }
