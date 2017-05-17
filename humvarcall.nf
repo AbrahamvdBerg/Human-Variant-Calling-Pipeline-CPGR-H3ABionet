@@ -1,23 +1,29 @@
 #!/usr/bin/env nextflow
 
-params.in = "/home/abraham/human_variant/input_files/SP1.fq"
+params.in1 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVariants_And_ERR250949_Variants_Exome_50X_NEAT_read1.fq""
+params.in2 = "/home/abraham/human_variant/input_files/UCSC_chr1_WithSyntheticVariants_And_ERR250949_Variants_Exome_50X_NEAT_read2.fq"
 params.ref = "/home/abraham/human_variant/reference_files/hg38.fa"
+
 params.index = "/home/abraham/human_variant/reference_files/hg38.fa"
 
-sequences = file(params.in)
+sequences1 = file(params.in1)
+sequences2 = file(params.in2)
 refgenome = file(params.ref)
 indexref = file(params.index)
 
 process AdaptorTrim {
 
     input:
-    file 'input.fa' from sequences
+    file 'input1.fa' from sequences1
+    file 'imput2.fa' from sequences2
 
     output:
-    file 'seq_*' into records
+    file 'seq_*1' into records1
+    file 'seq_*2' into records2
 
     """
-    fastx_clipper -l 20 -v -i input.fa -o seq_*
+    fastx_clipper -l 20 -v -i input1.fa -o seq_*
+    fastx_clipper -l 20 -v -i input2.fa -o seq_*2
     """
 
 }
@@ -25,19 +31,23 @@ process AdaptorTrim {
 process QualityTrim {
 
     input:
-    file x from records
+    file x1 from records1
+    file x2 from records2
     
     output:
-    file 'qualtrimmed' into recordsqual
+    file 'qualtrimmed1' into recordsqual1
+    file 'qualtrimeed2' into recordsqual2
 
     """
-    fastq_quality_filter -i $x -o qualtrimmed    
+    fastq_quality_filter -i $x1 -o qualtrimmed1
+    fastq_quality_filter -i $x2 -o qualtrimmed2
     """
 }
 
 process map_to_reference {
     input:
-    file y from recordsqual
+    file y1 from recordsqual1
+    file y2 from recordsqual2
     file indexed from indexref
     file ref from refgenome
 
@@ -45,7 +55,7 @@ process map_to_reference {
     file 'mapped' into recordsmap
 
     """
-    bwa mem indexed y 
+    bwa mem $ref $y1 $y2 
     """
 }
 
