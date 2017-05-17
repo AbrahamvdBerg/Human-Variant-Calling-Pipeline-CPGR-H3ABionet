@@ -39,6 +39,4 @@ process QualityTrim {
     """
 }
 
-
-
 result.subscribe { println it }
