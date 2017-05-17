@@ -46,7 +46,7 @@ process map_to_reference {
     input:
     file y1 from recordsqual1
     file y2 from recordsqual2
-    file ref from refgenome
+    file ref from params.ref
 
     output:
     file 'mapped' into recordsmap
